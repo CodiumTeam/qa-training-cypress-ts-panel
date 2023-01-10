@@ -18,4 +18,16 @@ describe('Register page', () => {
     cy.get('.bg-white:nth-child(1)').submit();
     cy.url().should('contains', 'https://qa-codium-course.netlify.app/');
   });
+
+  it('Should view "User already exists" message when tries to register with an existing user', () => {
+    cy.visit('https://qa-codium-course.netlify.app/register');
+    cy.get('div:nth-child(1) > .px-5').dblclick();
+    cy.get('div:nth-child(1) > .px-5').type('Codium');
+    cy.get('div:nth-child(2) > .px-5').type('Team');
+    cy.get('div:nth-child(3) > .w-full').type('info@codium.team');
+    cy.get('div:nth-child(4) > .w-full').type('codiumTest');
+    cy.get('span').click();
+    cy.get('.grid').submit();
+    cy.get('.text-red-700').dblclick();
+  });
 });
