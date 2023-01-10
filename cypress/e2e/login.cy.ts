@@ -10,4 +10,15 @@ describe('Login', () => {
     cy.get('.bg-white:nth-child(1)').submit();
     cy.url().should('contains', 'https://qa-codium-course.netlify.app/');
   });
+
+  it('Should show Required message under password field', () => {
+    cy.visit('https://qa-codium-course.netlify.app/login');
+    cy.get('.mb-4 .pl-2').click();
+    cy.get('.mb-4 .pl-2').type('codium@team.com');
+    cy.get('.block').click();
+    cy.get('.bg-white:nth-child(1)').submit();
+    cy.get('.text-red-700').dblclick();
+  });
+
+
 });
