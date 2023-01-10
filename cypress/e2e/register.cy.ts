@@ -30,4 +30,14 @@ describe('Register page', () => {
     cy.get('.grid').submit();
     cy.get('.text-red-700').dblclick();
   });
+
+  it('Should view "Required" message for all fields when user tries to register without filling fields', () => {
+    cy.visit('https://qa-codium-course.netlify.app/register');
+    cy.get('.justify-between').click();
+    cy.get('.grid').submit();
+    cy.get('div:nth-child(1) > .text-red-700').dblclick();
+    cy.get('div:nth-child(2) > .text-red-700').dblclick();
+    cy.get('div:nth-child(3) > .text-red-700').dblclick();
+    cy.get('div:nth-child(4) > .text-red-700').dblclick();
+  });
 });
