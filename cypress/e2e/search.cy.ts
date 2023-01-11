@@ -5,8 +5,8 @@ describe('Flights', () => {
     cy.visit('https://qa-codium-course.netlify.app/');
 
     cy.findByLabelText('From').click();
-    cy.get('#where-are-you-going #madrid').click();
-    cy.get('#to-where-are-you-going #barcelona').click();
+    cy.selectFrom('#madrid');
+    cy.selectTo('#barcelona');
     cy.findByPlaceholderText('Check in').type('2023-01-11');
     cy.findByPlaceholderText('Check out').type('2023-01-18');
     cy.findByRole('button', {name: 'Search'}).click();
