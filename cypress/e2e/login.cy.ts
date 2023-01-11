@@ -1,43 +1,42 @@
 describe('Login', () => {
-  it('Should be able to log in from Home page', () => {
+    it('Should be able to log in from Home page', () => {
     cy.visit('https://qa-codium-course.netlify.app/');
-    cy.get('.py-1').click();
-    cy.get('.mb-4 > .flex').click();
-    cy.get('.mb-4 .pl-2').click();
-    cy.get('.mb-4 .pl-2').type('codium@team.com');
-    cy.get('.flex:nth-child(4) .pl-2').type('codiumTest');
-    cy.get('.block').click();
-    cy.get('.bg-white:nth-child(1)').submit();
+    cy.findByRole('link', {
+      name: /Log in/i
+    }).click();
+
+    cy.findByPlaceholderText('Email Address').type(`info@codium.team`);
+    cy.findByPlaceholderText('Password').type('codiumTest');
+    cy.findByRole('button', {name: 'Login'}).click();
+
     cy.url().should('contains', 'https://qa-codium-course.netlify.app/');
   });
 
   it('Should show Required message under password field', () => {
     cy.visit('https://qa-codium-course.netlify.app/login');
-    cy.get('.mb-4 .pl-2').click();
-    cy.get('.mb-4 .pl-2').type('codium@team.com');
-    cy.get('.block').click();
-    cy.get('.bg-white:nth-child(1)').submit();
-    cy.get('.text-red-700').dblclick();
+
+    cy.findByPlaceholderText('Email Address').type(`info@codium.team`);
+    cy.findByRole('button', {name: 'Login'}).click();
+
+    cy.findByText('Required').dblclick();
   });
 
   it('Should show Required message under email address field', () => {
     cy.visit('https://qa-codium-course.netlify.app/login');
-    cy.get('.mb-4 .pl-2').click();
-    cy.get('.flex:nth-child(4) .pl-2').click();
-    cy.get('.flex:nth-child(4) .pl-2').type('dasddads');
-    cy.get('.block').click();
-    cy.get('.bg-white:nth-child(1)').submit();
-    cy.get('.text-red-700').dblclick();
+
+    cy.findByPlaceholderText('Password').type('codiumTest');
+    cy.findByRole('button', {name: 'Login'}).click();
+
+    cy.findByText('Required').dblclick();
   });
 
   it('Should show Invalid credentials when user enters an invalid password for existing user', () => {
     cy.visit('https://qa-codium-course.netlify.app/login');
-    cy.get('.mb-4 .pl-2').click();
-    cy.get('.mb-4 .pl-2').type('codium@team.com');
-    cy.get('.flex:nth-child(4) .pl-2').click();
-    cy.get('.flex:nth-child(4) .pl-2').type('sdfdfssdf');
-    cy.get('.block').click();
-    cy.get('.bg-white:nth-child(1)').submit();
-    cy.get('.bg-red-100 > .font-bold').dblclick();
+
+    cy.findByPlaceholderText('Email Address').type(`info@codium.team`);
+    cy.findByPlaceholderText('Password').type('invalidPassword');
+    cy.findByRole('button', {name: 'Login'}).click();
+
+    cy.findByText('Invalid credentials').dblclick();
   });
 });

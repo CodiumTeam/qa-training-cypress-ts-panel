@@ -38,9 +38,9 @@ describe('Flights', () => {
     cy.findByPlaceholderText('Check out').type('2023-01-18');
     cy.findByRole('button', {name: 'Search'}).click();
 
-    cy.get('.flight-card:nth-child(1) .flight-card__price').dblclick();
-    cy.get('.flight-card:nth-child(2) .flight-card__price').dblclick();
-    cy.get('.flight-card:nth-child(3) .flight-card__price').dblclick();
-    cy.get('.flight-card:nth-child(4) .flight-card__price').dblclick();
+    cy.findByText('93').dblclick();
+    cy.findByText('68').dblclick();
+    cy.findByText('82').dblclick();
+    cy.findByText('91').dblclick();
   });
 });

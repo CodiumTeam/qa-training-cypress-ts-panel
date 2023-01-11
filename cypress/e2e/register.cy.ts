@@ -30,7 +30,7 @@ describe('Register page', () => {
     cy.findByLabelText('Password').type(`codiumTest`);
     cy.findByRole('button', {name: 'Sign Up'}).click();
 
-    cy.get('.text-red-700').dblclick();
+    cy.findByText(/user already exists/i).dblclick();
   });
 
   it('Should view "Required" message for all fields when user tries to register without filling fields', () => {
@@ -38,9 +38,6 @@ describe('Register page', () => {
 
     cy.findByRole('button', {name: 'Sign Up'}).click();
 
-    cy.get('div:nth-child(1) > .text-red-700').dblclick();
-    cy.get('div:nth-child(2) > .text-red-700').dblclick();
-    cy.get('div:nth-child(3) > .text-red-700').dblclick();
-    cy.get('div:nth-child(4) > .text-red-700').dblclick();
+    cy.findAllByText('Required').dblclick();
   });
 });
