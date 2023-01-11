@@ -30,7 +30,7 @@ describe('Register page', () => {
     cy.findByLabelText('Password').type(`codiumTest`);
     cy.findByRole('button', {name: 'Sign Up'}).click();
 
-    cy.findByText(/user already exists/i).dblclick();
+    cy.findByText(/user already exists/i).should('be.visible');
   });
 
   it('Should view "Required" message for all fields when user tries to register without filling fields', () => {
@@ -38,6 +38,7 @@ describe('Register page', () => {
 
     cy.findByRole('button', {name: 'Sign Up'}).click();
 
-    cy.findAllByText('Required').dblclick();
+    cy.findAllByText('Required').should('have.length', 4);
+    cy.findAllByText('Required').should('be.visible');
   });
 });

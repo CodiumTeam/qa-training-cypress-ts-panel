@@ -33,7 +33,7 @@ describe('Checkout', () => {
     cy.findByPlaceholderText('Password').type('codiumTest');
     cy.findByRole('button', {name: 'Login'}).click();
 
-    cy.findByText(/flights from madrid to barcelona/i).dblclick();
-    cy.findByText('93').dblclick();
+    cy.findByText(/flights from madrid to barcelona/i).should('be.visible');
+    cy.findByText('93').should('be.visible');
   });
 });

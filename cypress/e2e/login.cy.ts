@@ -18,7 +18,7 @@ describe('Login', () => {
     cy.findByPlaceholderText('Email Address').type(`info@codium.team`);
     cy.findByRole('button', {name: 'Login'}).click();
 
-    cy.findByText('Required').dblclick();
+    cy.findByText('Required').should('be.visible');
   });
 
   it('Should show Required message under email address field', () => {
@@ -27,7 +27,7 @@ describe('Login', () => {
     cy.findByPlaceholderText('Password').type('codiumTest');
     cy.findByRole('button', {name: 'Login'}).click();
 
-    cy.findByText('Required').dblclick();
+    cy.findByText('Required').should('be.visible');
   });
 
   it('Should show Invalid credentials when user enters an invalid password for existing user', () => {
@@ -37,6 +37,6 @@ describe('Login', () => {
     cy.findByPlaceholderText('Password').type('invalidPassword');
     cy.findByRole('button', {name: 'Login'}).click();
 
-    cy.findByText('Invalid credentials').dblclick();
+    cy.findByText('Invalid credentials').should('be.visible');
   });
 });
