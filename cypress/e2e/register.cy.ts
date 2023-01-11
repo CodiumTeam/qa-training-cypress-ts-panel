@@ -1,7 +1,7 @@
 describe('Register page', () => {
   it('Should be able to register a new user coming from Home page', () => {
-    const randomUserId = Date.now();
     cy.visit('https://qa-codium-course.netlify.app/');
+    const randomUserId = Date.now();
     cy.findByRole('link', {
       name: /Register/i
     }).click();
@@ -21,24 +21,26 @@ describe('Register page', () => {
     cy.url().should('contains', 'https://qa-codium-course.netlify.app/');
   });
 
-  it('Should view "User already exists" message when tries to register with an existing user', () => {
-    cy.visit('https://qa-codium-course.netlify.app/register');
+  describe('From Register Page', () => {
+    beforeEach(() => {
+      cy.visit('https://qa-codium-course.netlify.app/register');
+    });
 
-    cy.findByLabelText('First Name').type('Codium');
-    cy.findByLabelText('Last name').type('Team');
-    cy.findByLabelText('Email address').type('info@codium.team');
-    cy.findByLabelText('Password').type(`codiumTest`);
-    cy.findByRole('button', {name: 'Sign Up'}).click();
+    it('Should view "User already exists" message when tries to register with an existing user', () => {
+      cy.findByLabelText('First Name').type('Codium');
+      cy.findByLabelText('Last name').type('Team');
+      cy.findByLabelText('Email address').type('info@codium.team');
+      cy.findByLabelText('Password').type(`codiumTest`);
+      cy.findByRole('button', {name: 'Sign Up'}).click();
 
-    cy.findByText(/user already exists/i).should('be.visible');
-  });
+      cy.findByText(/user already exists/i).should('be.visible');
+    });
 
-  it('Should view "Required" message for all fields when user tries to register without filling fields', () => {
-    cy.visit('https://qa-codium-course.netlify.app/register');
+    it('Should view "Required" message for all fields when user tries to register without filling fields', () => {
+      cy.findByRole('button', {name: 'Sign Up'}).click();
 
-    cy.findByRole('button', {name: 'Sign Up'}).click();
-
-    cy.findAllByText('Required').should('have.length', 4);
-    cy.findAllByText('Required').should('be.visible');
+      cy.findAllByText('Required').should('have.length', 4);
+      cy.findAllByText('Required').should('be.visible');
+    });
   });
 });

@@ -1,9 +1,11 @@
 /// <reference types="cypress" />
 
 describe('Flights', () => {
-  it('Should search flights from Madrid to Barcelona', () => {
+  beforeEach(() => {
     cy.visit('https://qa-codium-course.netlify.app/');
+  });
 
+  it('Should search flights from Madrid to Barcelona', () => {
     cy.findByLabelText('From').click();
     cy.selectFrom('#madrid');
     cy.selectTo('#barcelona');
@@ -15,8 +17,6 @@ describe('Flights', () => {
   });
 
   it('Should show from - to dates in searched bar for a flight from Madrid to Barcelona', () => {
-    cy.visit('https://qa-codium-course.netlify.app/');
-
     cy.findByLabelText('From').click();
     cy.get('#where-are-you-going #madrid').click();
     cy.get('#to-where-are-you-going #barcelona').click();
@@ -29,8 +29,6 @@ describe('Flights', () => {
   });
 
   it('Should list selectable routes flights prices for a flight from Madrid to Barcelona', () => {
-    cy.visit('https://qa-codium-course.netlify.app/');
-
     cy.findByLabelText('From').click();
     cy.get('#where-are-you-going #madrid').click();
     cy.get('#to-where-are-you-going #barcelona').click();

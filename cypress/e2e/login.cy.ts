@@ -12,31 +12,31 @@ describe('Login', () => {
     cy.url().should('contains', 'https://qa-codium-course.netlify.app/');
   });
 
-  it('Should show Required message under password field', () => {
-    cy.visit('https://qa-codium-course.netlify.app/login');
+  describe('From Login Page', () => {
+    beforeEach(() => {
+      cy.visit('https://qa-codium-course.netlify.app/login');
+    });
 
-    cy.findByPlaceholderText('Email Address').type(`info@codium.team`);
-    cy.findByRole('button', {name: 'Login'}).click();
+    it('Should show Required message under password field', () => {
+      cy.findByPlaceholderText('Email Address').type(`info@codium.team`);
+      cy.findByRole('button', {name: 'Login'}).click();
 
-    cy.findByText('Required').should('be.visible');
-  });
+      cy.findByText('Required').should('be.visible');
+    });
 
-  it('Should show Required message under email address field', () => {
-    cy.visit('https://qa-codium-course.netlify.app/login');
+    it('Should show Required message under email address field', () => {
+      cy.findByPlaceholderText('Password').type('codiumTest');
+      cy.findByRole('button', {name: 'Login'}).click();
 
-    cy.findByPlaceholderText('Password').type('codiumTest');
-    cy.findByRole('button', {name: 'Login'}).click();
+      cy.findByText('Required').should('be.visible');
+    });
 
-    cy.findByText('Required').should('be.visible');
-  });
+    it('Should show Invalid credentials when user enters an invalid password for existing user', () => {
+      cy.findByPlaceholderText('Email Address').type(`info@codium.team`);
+      cy.findByPlaceholderText('Password').type('invalidPassword');
+      cy.findByRole('button', {name: 'Login'}).click();
 
-  it('Should show Invalid credentials when user enters an invalid password for existing user', () => {
-    cy.visit('https://qa-codium-course.netlify.app/login');
-
-    cy.findByPlaceholderText('Email Address').type(`info@codium.team`);
-    cy.findByPlaceholderText('Password').type('invalidPassword');
-    cy.findByRole('button', {name: 'Login'}).click();
-
-    cy.findByText('Invalid credentials').should('be.visible');
+      cy.findByText('Invalid credentials').should('be.visible');
+    });
   });
 });

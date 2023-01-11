@@ -1,6 +1,9 @@
 describe('Ticket', () => {
-  it.skip('Should be able to buy and print the flight ticket from Madrid to Barcelona', () => {
+  beforeEach(() => {
     cy.visit('https://qa-codium-course.netlify.app/');
+  });
+
+  it.skip('Should be able to buy and print the flight ticket from Madrid to Barcelona', () => {
     cy.findByLabelText('From').click();
     cy.selectFrom('#madrid');
     cy.selectTo('#barcelona');
