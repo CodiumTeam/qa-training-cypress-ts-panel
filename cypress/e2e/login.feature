@@ -1,0 +1,9 @@
+Feature: Login
+  As a customer
+  I want access to login page from Home page or by url
+  So that I can log in
+
+  Scenario: Access login page from homepage
+    Given the user is on the homepage
+    When the user clicks on the Login button
+    Then the login page is displayed
