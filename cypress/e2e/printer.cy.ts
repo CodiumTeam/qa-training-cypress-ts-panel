@@ -3,7 +3,7 @@ describe('Ticket', () => {
     cy.visit('https://qa-codium-course.netlify.app/');
   });
 
-  it.skip('Should be able to buy and print the flight ticket from Madrid to Barcelona', () => {
+  it('Should be able to buy and print the flight ticket from Madrid to Barcelona', () => {
     cy.findByLabelText('From').click();
     cy.selectFrom('#madrid');
     cy.selectTo('#barcelona');
@@ -17,8 +17,21 @@ describe('Ticket', () => {
     cy.findByLabelText('Card Holder').type('codium team');
     cy.findByLabelText('Card Details').type('4111111111111111');
     cy.findByPlaceholderText('MM/YY').type('03/25');
+    cy.window()
+      .then((win => {
+        cy.stub(win, 'prompt').returns('124');
+      }));
     cy.findByPlaceholderText('CVC').click();
     cy.findByRole('button', {name: 'Place Order'}).click();
+    cy.findByRole('button', {name: 'Imprimir'}).should('be.visible');
+    cy.window()
+      .then((win => {
+        cy.stub(win, 'print').as('printer');
+      }));
     cy.findByRole('button', {name: 'Imprimir'}).click();
+    cy.get("@printer")
+      .should(
+        "have.been.calledOnce"
+      );
   });
 });
