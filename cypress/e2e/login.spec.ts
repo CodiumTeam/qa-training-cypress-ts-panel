@@ -44,3 +44,12 @@ When("I leave the email field empty", () => {
 Then("I should see an error message stating that the fields are required", () => {
   cy.findByText('Required').should('be.visible');
 });
+When("I enter a valid username", () => {
+  cy.findByPlaceholderText('Email Address').type(`info@codium.team`);
+});
+When("I enter invalid password", () => {
+  cy.findByPlaceholderText('Password').type('invalidPassword');
+});
+Then(/^I should see an error message stating that my login attempt was unsuccessful$/, function () {
+  cy.findByText('Invalid credentials').should('be.visible');
+});

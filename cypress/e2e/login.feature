@@ -25,3 +25,10 @@ Feature: Login
     When I leave the email field empty
     And I click on the login button
     Then I should see an error message stating that the fields are required
+
+  Scenario: Login with invalid password credentials
+    Given I am on the login page
+    When I enter a valid username
+    And I enter invalid password
+    And I click on the login button
+    Then I should see an error message stating that my login attempt was unsuccessful
