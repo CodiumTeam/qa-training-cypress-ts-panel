@@ -33,8 +33,14 @@ Then("I should be logged in and directed to the home page", () => {
 });
 When("I leave the password field empty", () => {
   cy.findByPlaceholderText('Email Address').type(`info@codium.team`);
+  cy.findByPlaceholderText('Password').clear();
 });
 
-Then("I should see an error message under password field", () => {
+When("I leave the email field empty", () => {
+  cy.findByPlaceholderText('Email Address').clear();
+  cy.findByPlaceholderText('Password').type('aPassword');
+});
+
+Then("I should see an error message stating that the fields are required", () => {
   cy.findByText('Required').should('be.visible');
 });

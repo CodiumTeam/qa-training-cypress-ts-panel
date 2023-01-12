@@ -18,4 +18,10 @@ Feature: Login
     Given I am on the login page
     When I leave the password field empty
     And I click on the login button
-    Then I should see an error message under password field
+    Then I should see an error message stating that the fields are required
+
+  Scenario: Login with empty email credentials
+    Given I am on the login page
+    When I leave the email field empty
+    And I click on the login button
+    Then I should see an error message stating that the fields are required
