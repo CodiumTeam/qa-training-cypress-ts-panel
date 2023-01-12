@@ -33,7 +33,7 @@ describe('Checkout', () => {
     cy.findByText('93').should('be.visible');
   });
 
-  it('Should show "Invalid card holder" when the holder ame is not filled', () => {
+  it('Should show "Invalid card holder" when the holder name is not filled', () => {
     cy.findByLabelText('Card Details').type('4111111111111111');
     cy.findByPlaceholderText('MM/YY').type('03/25');
     cy.window()
@@ -52,6 +52,29 @@ describe('Checkout', () => {
       .should(
         "have.been.calledOnceWith",
         "Invalid card because: Invalid Card holder"
+      );
+  });
+
+  it('Should show "Invalid number" when the card number is invalid', () => {
+    cy.findByLabelText('Card Holder').type('codium team');
+    cy.findByLabelText('Card Details').type('411111222222222');
+    cy.findByPlaceholderText('MM/YY').type('03/25');
+    cy.window()
+      .then((win => {
+        cy.stub(win, 'prompt').returns('124');
+      }));
+    cy.findByPlaceholderText('CVC').click();
+    cy.window()
+      .then((win => {
+        cy.spy(win, 'alert').as('alertShown');
+      }));
+    cy.findByRole('button', {name: 'Place Order'})
+      .click();
+
+    cy.get("@alertShown")
+      .should(
+        "have.been.calledOnceWith",
+        "Invalid card because: Invalid Number"
       );
   });
 });
