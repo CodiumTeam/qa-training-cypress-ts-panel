@@ -12,6 +12,8 @@
   "author": "Codium <info@codium.team>",
   "license": "MIT",
   "devDependencies": {
+    "@badeball/cypress-cucumber-preprocessor": "20.0.3",
+    "@bahmutov/cypress-esbuild-preprocessor": "2.2.0",
     "@testing-library/cypress": "10.0.1",
     "@types/jest": "^29.5.12",
     "cypress": "13.8.1",
