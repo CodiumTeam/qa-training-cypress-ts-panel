@@ -1,6 +1,7 @@
 describe('Checkout', () => {
   beforeEach(() => {
     cy.visit('https://qa-codium-course.netlify.app/');
+
     cy.findByLabelText('From').click();
     cy.selectFrom('#madrid');
     cy.selectTo('#barcelona');
@@ -13,10 +14,14 @@ describe('Checkout', () => {
     cy.findByRole('button', {name: 'Login'}).click();
   });
 
-  it.skip('Should be able to buy a flight from Madrid to Barcelona', () => {
+  it('Should be able to buy a flight from Madrid to Barcelona', () => {
     cy.findByLabelText('Card Holder').type('codium team');
     cy.findByLabelText('Card Details').type('4111111111111111');
     cy.findByPlaceholderText('MM/YY').type('03/25');
+    cy.window()
+      .then((win => {
+        cy.stub(win, 'prompt').returns('124');
+      }));
     cy.findByPlaceholderText('CVC').click();
     cy.findByRole('button', {name: 'Place Order'}).click();
 
