@@ -77,4 +77,26 @@ describe('Checkout', () => {
         "Invalid card because: Invalid Number"
       );
   });
+
+  it('Should show "Invalid Expiration" when the card expiration date is not filled', () => {
+    cy.findByLabelText('Card Holder').type('codium team');
+    cy.findByLabelText('Card Details').type('4111111111111111');
+    cy.window()
+      .then((win => {
+        cy.stub(win, 'prompt').returns('124');
+      }));
+    cy.findByPlaceholderText('CVC').click();
+    cy.window()
+      .then((win => {
+        cy.spy(win, 'alert').as('alertShown');
+      }));
+    cy.findByRole('button', {name: 'Place Order'})
+      .click();
+
+    cy.get("@alertShown")
+      .should(
+        "have.been.calledOnceWith",
+        "Invalid card because: Invalid Expiration"
+      );
+  });
 });
