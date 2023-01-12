@@ -7,3 +7,9 @@ Feature: Login
     Given the user is on the homepage
     When the user clicks on the Login button
     Then the login page is displayed
+
+  Scenario: Login with valid credentials
+    Given I am on the login page
+    When I enter valid username and password
+    And I click on the login button
+    Then I should be logged in and directed to the home page
