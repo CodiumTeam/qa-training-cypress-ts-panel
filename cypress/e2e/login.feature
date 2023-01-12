@@ -13,3 +13,9 @@ Feature: Login
     When I enter valid username and password
     And I click on the login button
     Then I should be logged in and directed to the home page
+
+  Scenario: Login with empty password credentials
+    Given I am on the login page
+    When I leave the password field empty
+    And I click on the login button
+    Then I should see an error message under password field

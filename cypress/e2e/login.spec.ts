@@ -31,3 +31,10 @@ When("I click on the login button", () => {
 Then("I should be logged in and directed to the home page", () => {
   cy.url().should('eq', 'https://qa-codium-course.netlify.app/');
 });
+When("I leave the password field empty", () => {
+  cy.findByPlaceholderText('Email Address').type(`info@codium.team`);
+});
+
+Then("I should see an error message under password field", () => {
+  cy.findByText('Required').should('be.visible');
+});
