@@ -102,7 +102,7 @@ Then create a `.cypress-cucumber-preprocessorrc.json` in the root directory with
 ```json
 {
  "stepDefinitions": [
-   "cypress/e2e/**/*.spec.js"
+   "cypress/e2e/**/*.spec.ts"
  ]
 }
 ```
@@ -110,29 +110,28 @@ Then create a `.cypress-cucumber-preprocessorrc.json` in the root directory with
 And override `cypress.config.ts` with:
 
 ```javascript
-const { defineConfig } = require('cypress');
-
-const createBundler = require('@bahmutov/cypress-esbuild-preprocessor');
-const addCucumberPreprocessorPlugin =
- require('@badeball/cypress-cucumber-preprocessor').addCucumberPreprocessorPlugin;
-const createEsbuildPlugin =
- require('@badeball/cypress-cucumber-preprocessor/esbuild').createEsbuildPlugin;
+import {defineConfig} from "cypress";
+import getCompareSnapshotsPlugin from "cypress-image-diff-js/plugin";
+import createBundler from "@bahmutov/cypress-esbuild-preprocessor";
+import { addCucumberPreprocessorPlugin } from "@badeball/cypress-cucumber-preprocessor";
+import { createEsbuildPlugin } from "@badeball/cypress-cucumber-preprocessor/esbuild";
 
 module.exports = defineConfig({
- e2e: {
-   async setupNodeEvents(on, config) {
-     const bundler = createBundler({
-       plugins: [createEsbuildPlugin(config)],
-     });
+  e2e: {
+    async setupNodeEvents(on, config) {
+      await addCucumberPreprocessorPlugin(on, config);
+      getCompareSnapshotsPlugin(on, config);
+      on(
+        "file:preprocessor",
+        createBundler({
+          plugins: [createEsbuildPlugin(config)],
+        })
+      );
 
-     on('file:preprocessor', bundler);
-     await addCucumberPreprocessorPlugin(on, config);
-
-     return config;
-   },
-   specPattern: 'cypress/e2e/**/*.feature',
- },
+      return config;
+    },
+    specPattern: 'cypress/e2e/**/*.feature',
+  },
 });
-
 ```
 
