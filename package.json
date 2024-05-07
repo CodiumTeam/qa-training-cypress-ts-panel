@@ -9,19 +9,9 @@
     "unit": "jest",
     "unit:coverage": "jest --coverage"
   },
-  "babel": {
-    "env": {
-      "test": {
-        "plugins": [
-          "@babel/plugin-transform-modules-commonjs"
-        ]
-      }
-    }
-  },
   "author": "Codium <info@codium.team>",
   "license": "MIT",
   "devDependencies": {
-    "@babel/plugin-transform-modules-commonjs": "7.20.11",
     "@testing-library/cypress": "10.0.1",
     "@types/jest": "^29.5.12",
     "cypress": "13.8.1",
