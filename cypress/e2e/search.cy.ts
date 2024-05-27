@@ -10,17 +10,20 @@ let pasajeros = "2 adult"
 print
 describe('Flights', () => {
   
+  beforeEach(() => {
+    cy.visit('https://qa-codium-course.netlify.app/');
+  });
+
   // TestBusqueda: Testea la busqueda de vuelos con comprobación de vuelo, fecha y pasajeros
   it('Search Works OK', () => {
-    cy.visit('https://qa-codium-course.netlify.app/');
-    cy.get('#where-are-you-going-portal').click();
+    cy.get('input[name="from"]').click();
     cy.get('#where-are-you-going #' + lugarIda[0]).click();
     cy.get('#to-where-are-you-going-portal').click();
     cy.get('#to-where-are-you-going #' + lugarVuelta[0]).click();
-    cy.get('.relative:nth-child(4) > .relative > .relative').type(fechaIda);
-    cy.get('.relative:nth-child(5) > .relative > .relative').type(fechaVuelta);
+    cy.findByPlaceholderText("Check in").type(fechaIda);
+    cy.get("input[placeholder=\"Check out\"]").type(fechaVuelta);
     cy.get('#adults-add path').click();
-    cy.get('.mt-5').click();
+    cy.findByRole('button', {name: /search/i}).click();
     cy.url().should('contains', 'https://qa-codium-course.netlify.app/search');
     cy.get('.mr-8').should('contain', lugarIda[1])
     cy.get('.mr-8').should('contain', lugarVuelta[1])
@@ -31,7 +34,6 @@ describe('Flights', () => {
 
   // TestLogin: Testea el flujo de login y comprueba que esté logado.
   it('Login Works OK', () => {
-    cy.visit('https://qa-codium-course.netlify.app/search?from=MAD&to=BCN&checkIn=16%2F05%2F2024&checkOut=23%2F05%2F2024&guests-adults=2&guests-children=0&guests-infants=0');
     cy.get('.py-1').click();
     cy.get('.mb-4 .pl-2').click();
     cy.get('.mb-4 .pl-2').type('info@codium.team');
