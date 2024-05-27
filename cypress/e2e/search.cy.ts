@@ -42,7 +42,32 @@ describe('Flights', () => {
     cy.get('.block').click();
     cy.get('.bg-white:nth-child(1)').submit();
     cy.url().should('contains', 'https://qa-codium-course.netlify.app/');
-    cy.get('.py-1').should('contain', 'Log out')
+    cy.findByText('Log out').should('exist')
+  });
+
+   //TestPago
+   it.skip('Login Works OK', () => {
+    cy.visit('https://qa-codium-course.netlify.app/');
+    cy.get('#where-are-you-going-portal').click();
+    cy.get('#where-are-you-going #madrid').click();
+    cy.get('#to-where-are-you-going-portal').click();
+    cy.get('#to-where-are-you-going #barcelona').click();
+    cy.get('.relative:nth-child(4) > .relative > .relative').type('2024-05-15');
+    cy.get('.relative:nth-child(5) > .relative > .relative').type('2024-05-22');
+    cy.get('.mt-5').click();
+    cy.url().should('contains', 'https://qa-codium-course.netlify.app/search');
+    cy.get('.flight-card:nth-child(1) .flight-card__cta').click();
+    cy.url().should('contains', 'https://qa-codium-course.netlify.app/checkout');
+    cy.get('#card-holder').click();
+    cy.get('#card-holder').type('{backspace}');
+    cy.get('#card-holder').type('Edgar oller');
+    cy.get('#card-no').type('{backspace}');
+    cy.get('#card-no').type('{backspace}');
+    cy.get('#card-no').type('1111222233334444');
+    cy.get('.rounded-md:nth-child(2)').click();
+    cy.get('.rounded-md:nth-child(2)').type('03/23');
+    cy.get('.mb-8').click();
+    cy.url().should('contains', 'https://qa-codium-course.netlify.app/ticket');
   });
 });
 
