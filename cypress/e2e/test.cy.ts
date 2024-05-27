@@ -1,4 +1,9 @@
 /// <reference types="cypress" />
+
+/* 
+Variables
+*/
+
 let lugarIda = ["madrid", "MAD"]
 let lugarVuelta = ["barcelona", "BCN"]
 let fechaIda = "2024-05-16";
@@ -55,7 +60,7 @@ describe('Flights', () => {
     cy.get('.block').click();
     cy.get('.bg-white:nth-child(1)').submit();
     cy.url().should('contains', 'https://qa-codium-course.netlify.app/');
-    cy.get('.py-1').should('contains', 'Log out');
+    cy.findByText('Log out').should('exist')
   });
 
   //TestPago
