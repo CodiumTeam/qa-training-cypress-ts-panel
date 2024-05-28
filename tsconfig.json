@@ -17,6 +17,6 @@
     "skipLibCheck": true,                                 /* Skip type checking all .d.ts files. */
     "types": ["cypress", "node" , "@testing-library/cypress"]
   },
-  "include": ["**/*.ts"],
+  "include": ["**/*.ts", "cypress/e2e/Snapshot.cy.ts"],
   "exclude": ["jest/**/*.test.ts", "node_modules"]
 }
