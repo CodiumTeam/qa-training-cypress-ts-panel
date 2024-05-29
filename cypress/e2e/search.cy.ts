@@ -1,4 +1,5 @@
 /// <reference types="cypress" />
+/// <reference types="cypress" />
 
 describe('Flights', () => {
   it('It works', () => {

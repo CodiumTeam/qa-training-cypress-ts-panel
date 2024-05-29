@@ -1,5 +1,5 @@
 describe("Compra vuelo", () => {
-    it.skip("Compra vuelo", () => {         //El skip  hace que no se ejecute
+    it ("Compra vuelo", () => {         //El skip  hace que no se ejecute
         cy.visit('https://qa-codium-course.netlify.app/');
         cy.get('.py-16').click();
         cy.get('#where-are-you-going-portal').click();
@@ -29,7 +29,16 @@ describe("Compra vuelo", () => {
         cy.get('.rounded-md:nth-child(2)').type('{backspace}');
         cy.get('.rounded-md:nth-child(2)').type('{backspace}');
         cy.get('.rounded-md:nth-child(2)').type('03/30');
-        cy.get('.cursor-pointer').click();
+
+        cy.window()
+     .then((win => {
+       cy.stub(win, 'prompt').returns(124);
+       cy.spy(win, 'alert').as('alertShown')
+     }));
+     cy.findByPlaceholderText('CVC').click()
+
+     cy.findByPlaceholderText('CVC')
+       .should('have.value', '124')  
         cy.get('.mb-8').click();
         cy.url().should('contains', 'https://qa-codium-course.netlify.app/ticket');         
     });

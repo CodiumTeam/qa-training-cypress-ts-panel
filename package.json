@@ -12,12 +12,17 @@
   "author": "Codium <info@codium.team>",
   "license": "MIT",
   "devDependencies": {
+    "@bahmutov/cypress-esbuild-preprocessor": "^2.2.0",
     "@testing-library/cypress": "10.0.1",
     "@types/jest": "^29.5.12",
-    "cypress": "13.8.1",
+    "cypress": "^13.8.1",
+    "esbuild": "^0.21.4",
     "jest": "^29.3.1",
     "ts-jest": "^29.1.2",
     "ts-node": "^10.9.2",
     "typescript": "^5.4.5"
+  },
+  "dependencies": {
+    "@badeball/cypress-cucumber-preprocessor": "^20.0.5"
   }
 }
